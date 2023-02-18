@@ -6,14 +6,14 @@ const MatchSchema = new mongoose.Schema({
         {
             type: new mongoose.Schema({
                 name: { type: String, required: true },
-                selectedCoordinates: {
+                selectedCoordinates: [{
                     type: new mongoose.Schema({
                         lng: { type: Number, required: true },
                         lat: { type: Number, required: true },
-                        timestamp: { type: Date, default: new Date(), required: true },
                     }),
-                    required: false
-                }
+                    required: false,
+                    default: []
+                }]
             }),
             required: true,
             default: []
@@ -24,6 +24,14 @@ const MatchSchema = new mongoose.Schema({
         default: 0,
         required: true
     },
+    features: [{
+        type: new mongoose.Schema({
+            lng: { type: Number, required: true },
+            lat: { type: Number, required: true },
+            name: { type: String, required: true }
+        }),
+        required: true,
+    }]
 });
 
 let MatchModel: mongoose.Model<Match>;

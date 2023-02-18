@@ -7,14 +7,15 @@ export default async function handler(
     res: NextApiResponse
 ) {
     if (req.method === "POST") {
-        const { teamNames } = req.body;
-        if (teamNames === undefined || teamNames.length === 0) {
+        const { teamNames, features } = req.body;
+        if (teamNames === undefined || teamNames.length === 0 || !features) {
             res.status(500).send("Malformed Request");
             return;
         }
         await connectMongo;
         const match = await MatchModel.create({
-            teams: teamNames.map((name: string) => ({ name }))
+            teams: teamNames.map((name: string) => ({ name })),
+            features
         });
         res.send(JSON.stringify(match));
     } else {

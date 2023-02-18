@@ -7,8 +7,8 @@ export default async function handler(
     res: NextApiResponse
 ) {
     if (req.method === "POST") {
-        const { matchId, teamId, lng, lat } = req.body;
-        if (!matchId || !teamId || lng === undefined || lat === undefined) {
+        const { matchId, teamId, points } = req.body;
+        if (!matchId || !teamId || !points) {
             res.status(500).send("Malformed Request!");
             return;
         }
@@ -18,7 +18,7 @@ export default async function handler(
             res.status(400).send("No Quiz with ID in Database");
             return;
         }
-        queriedMatch.teams.find((t) => String(t._id) === String(teamId))!.selectedCoordinates = { lng, lat, timestamp: new Date() };
+        queriedMatch.teams.find((t) => String(t._id) === String(teamId))!.selectedCoordinates.push(points.map((p: [number, number]) => ({ lng: p[0], lat: p[1] })));
         await queriedMatch.save();
         res.send(JSON.stringify(queriedMatch));
     } else {
