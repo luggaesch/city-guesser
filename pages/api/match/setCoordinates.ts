@@ -14,13 +14,13 @@ export default async function handler(
             return;
         }
         await connectMongo;
-        const queriedMatch = await MatchModel.findOne({ _id: matchId }) as Match;
+        const queriedMatch = await MatchModel.findOne({ _id: matchId });
         if (!queriedMatch) {
             res.status(400).send("No Quiz with ID in Database");
             return;
         }
-        queriedMatch.teams.find((t) => String(t._id) === String(teamId))!.selectedCoordinates.push(...points.map((p: [number, number]) => ({ lng: p[0], lat: p[1] })));
-        await queriedMatch.save();
+        (queriedMatch as Match).teams.find((t) => String(t._id) === String(teamId))!.selectedCoordinates.push(...points.map((p: [number, number]) => ({ lng: p[0], lat: p[1] })));
+        await (queriedMatch as any).save();
         res.send(JSON.stringify(queriedMatch));
     } else {
         res.status(404).send({});
