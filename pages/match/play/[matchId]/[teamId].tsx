@@ -18,7 +18,7 @@ export type MapboxStyleFormat = {
 }
 
 export const MapStyles = {
-    NoLabel: `${prefix}/schlukas/clcq9fglj004414n4p7j0lijp`,
+    NoLabel: `${prefix}/${process.env.NEXT_PUBLIC_MAPBOX_STYLE_DARK_NOLABEL}`,
     Label: `${prefix}/${mapboxDomain}/dark-v10`,
     Satellite: `mapbox://styles/mapbox/satellite-v9`
 }
