@@ -42,7 +42,7 @@ export default function PlayMatch({ match }: { match: Match }) {
         } else {
             host = "https://woliegtwas.herokuapp.com";
         }
-        return `${host}/match/play/${match._id}/${currentMatch._id}/${teamId}`;
+        return `${host}/match/play/${currentMatch._id}/${teamId}`;
     }
 
     return (
