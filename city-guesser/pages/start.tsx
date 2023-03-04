@@ -49,7 +49,8 @@ export default function Start() {
                         }
                         setTeamNames(tn);
                     }
-                    }>{name}</TextField>
+                    }>{name}
+                    </TextField>
                 ))}
             </div>
             <div style={{ display: "flex", flexDirection: "column", padding: 10, backgroundColor: "#282828", borderRadius: 8, alignItems: "center" }}>
