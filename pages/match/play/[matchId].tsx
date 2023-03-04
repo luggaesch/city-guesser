@@ -61,7 +61,7 @@ export default function PlayMatch({ match }: { match: Match }) {
             </IconButton>
         </div>
             }
-            {showMap && <Map initialViewState={{ longitude: currentMatch.features[0].lng, latitude: currentMatch.features[0].lat, zoom: getBoundsZoomLevel(getBboxForPoints([[match.features[currentPlaceIndex].lng, match.features[currentPlaceIndex].lat], match.teams.map((t) => [t.selectedCoordinates[currentPlaceIndex].lng, t.selectedCoordinates[currentPlaceIndex].lat] )].flat(2))) }} mapStyle={MapStyles.Label} style={{ zIndex: 5, width: "100vw", height: "100vh", position: "fixed", left: 0, top: 0}} mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_TOKEN}>
+            {showMap && <Map initialViewState={{ longitude: currentMatch.features[0].lng, latitude: currentMatch.features[0].lat, zoom: getBoundsZoomLevel(getBboxForPoints([[[match.features[currentPlaceIndex].lng, match.features[currentPlaceIndex].lat], match.teams.map((t) => [t.selectedCoordinates[currentPlaceIndex].lng, t.selectedCoordinates[currentPlaceIndex].lat] )].flat(2)])) }} mapStyle={MapStyles.Label} style={{ zIndex: 5, width: "100vw", height: "100vh", position: "fixed", left: 0, top: 0}} mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_TOKEN}>
                 {currentMatch.teams.map((t) => (
                     <>
                         <Marker key={t._id} longitude={t.selectedCoordinates[currentPlaceIndex].lng} latitude={t.selectedCoordinates[currentPlaceIndex].lat}>
