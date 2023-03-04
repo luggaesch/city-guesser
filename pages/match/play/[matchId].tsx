@@ -117,7 +117,7 @@ function ContinueButton({ match, currentPlaceIndex, setPlaceIndex }: { match: Ma
         <Button onClick={() => {
             const nextIndex = currentPlaceIndex + 1;
             map?.fitBounds({ lng: match.features[nextIndex].lng, lat: match.features[nextIndex].lat });
-            map?.setZoom(getBoundsZoomLevel(getBboxForPoints([[match.features[nextIndex].lng, match.features[nextIndex].lat], match.teams.map((t) => [t.selectedCoordinates[nextIndex].lng, t.selectedCoordinates[nextIndex].lat] )].flat(2))));
+            map?.setZoom(getBoundsZoomLevel(getBboxForPoints([[[match.features[nextIndex].lng, match.features[nextIndex].lat], match.teams.map((t) => [t.selectedCoordinates[nextIndex].lng, t.selectedCoordinates[nextIndex].lat] )].flat(2)])));
             setPlaceIndex(nextIndex);
         }} variant="contained" style={{ position: "absolute", left: 10, bottom: 10  }}>
             Next Place
