@@ -5,9 +5,9 @@ import { Inter } from '@next/font/google'
 import styles from '../styles/Home.module.css'
 import mapboxgl from "mapbox-gl";
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import MapboxWorker from 'worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker';
 // @ts-ignore
-mapboxgl.workerClass = MapboxWorker.default;
+mapboxgl.workerClass = require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker').default;
+
 
 
 const inter = Inter({ subsets: ['latin'] })
