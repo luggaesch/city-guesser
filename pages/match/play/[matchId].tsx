@@ -39,8 +39,6 @@ export default function PlayMatch({ match }: { match: Match }) {
         let host;
         if (process.env.NEXT_PUBLIC_IP_ADDR){
             host = `http://${process.env.NEXT_PUBLIC_IP_ADDR}:3000`
-        } else if (location) {
-            host = location.origin;
         } else {
             host = "https://woliegtwas.herokuapp.com";
         }
