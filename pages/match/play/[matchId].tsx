@@ -35,7 +35,17 @@ export default function PlayMatch({ match }: { match: Match }) {
         }, 1000);
     }, [match]);
 
-    console.log(currentMatch);
+    function getLink(teamId: string) {
+        let host;
+        if (process.env.NEXT_PUBLIC_IP_ADDR){
+            host = `http://${process.env.NEXT_PUBLIC_IP_ADDR}:3000`
+        } else if (location) {
+            host = location.origin;
+        } else {
+            host = "https://woliegtwas.herokuapp.com";
+        }
+        return `${host}/match/play/${match._id}/${currentMatch._id}/${teamId}`;
+    }
 
     return (
         <>
@@ -44,8 +54,8 @@ export default function PlayMatch({ match }: { match: Match }) {
             <ul>
                 {currentMatch.teams.map((team) => (
                     <li key={team._id}>
-                        <Link target="_blank" href={`http://localhost:3000/match/play/${currentMatch._id}/${team._id}`}>
-                            <QRCode value={`http://192.168.178.25:3000/match/play/${currentMatch._id}/${team._id}`} />
+                        <Link target="_blank" href={getLink(team._id!)}>
+                            <QRCode value={getLink(team._id!)} />
                         </Link>
                         {/*
                         <Link target="_blank" href={`/match/play/${currentMatch._id}/${team._id}`}>
