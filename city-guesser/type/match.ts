@@ -6,7 +6,7 @@ export type Team = {
     selectedCoordinates: [{
         lng: number,
         lat: number,
-    }]
+    }];
 }
 
 type Match = {

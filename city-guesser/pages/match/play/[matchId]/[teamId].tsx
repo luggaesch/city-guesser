@@ -10,7 +10,6 @@ import {ChevronRight, Done} from "@mui/icons-material";
 
 const prefix = "mapbox://styles";
 const mapboxDomain = "mapbox";
-const rbitechDomain = "rbitechug";
 
 export type MapboxStyleFormat = {
     url: string;
@@ -19,8 +18,9 @@ export type MapboxStyleFormat = {
 }
 
 export const MapStyles = {
-    NoLabel: { url: `mapbox://styles/schlukas/clcq9fglj004414n4p7j0lijp`, previewImage:  "/images/styles/dark.PNG", name: "Dark"},
-    Label: { url: `${prefix}/${mapboxDomain}/dark-v10`, previewImage:  "/images/styles/dark.PNG", name: "Dark"},
+    NoLabel: `${prefix}/schlukas/clcq9fglj004414n4p7j0lijp`,
+    Label: `${prefix}/${mapboxDomain}/dark-v10`,
+    Satellite: `mapbox://styles/mapbox/satellite-v9`
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -46,7 +46,7 @@ export default function SelectCoordinates({ match, teamId }: { match: Match, tea
     }
 
     return (
-        <Map onClick={handleClick} mapStyle={MapStyles.NoLabel.url} style={{ width: "100vw", height: "100vh" }} mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_TOKEN}>
+        <Map initialViewState={{ longitude: 0, latitude: 0, zoom: 1 }} onClick={handleClick} mapStyle={MapStyles.NoLabel} style={{ width: "100vw", height: "100vh" }} mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_TOKEN}>
             <div style={{ padding: 10, position: "fixed", left: 10, top: 10, width: 200, textAlign: "center", borderRadius: 4, backgroundColor: "#ffffff80" }}>Try to Pinpoint: {match.features[currentPlaceIndex].name}</div>
             {clickedCoordinates[currentPlaceIndex] !== null && <Marker longitude={clickedCoordinates[currentPlaceIndex]![0]} latitude={clickedCoordinates[currentPlaceIndex]![1]} />}
             {clickedCoordinates[currentPlaceIndex] !== null && (currentPlaceIndex !== match.features.length - 1 ?

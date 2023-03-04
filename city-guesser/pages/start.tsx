@@ -2,8 +2,10 @@ import axios from "axios";
 import {useRouter} from "next/router";
 import {useState} from "react";
 import {IconButton, TextField} from "@mui/material";
-import {ChevronRight, Search} from "@mui/icons-material";
+import {ChevronRight, Delete, Search} from "@mui/icons-material";
 import Feature from "../type/feature";
+import {Map, Marker} from "react-map-gl";
+import {MapStyles} from "./match/play/[matchId]/[teamId]";
 
 type ApiFeature = {
     place_name: string,
@@ -73,13 +75,21 @@ export default function Start() {
                         }} key={index}>{f.place_name}</li>
                     ))}
                 </ul>
-                <ul style={{ listStyle: "none", display: "flex", flexDirection: "row", flexWrap: "wrap", position: "absolute", bottom: 5, left: 5, gap: 10  }}>
+                <ul style={{ maxWidth: "100vw", overflowX: "scroll", listStyle: "none", display: "flex", flexDirection: "row", position: "absolute", bottom: 5, left: 5, gap: 10  }}>
                     {chosenFeatures.map((f, index) => (
-                        <li onClick={() => {
-                            const arr = [...chosenFeatures];
-                            arr.splice(index, 1);
-                            setChosenFeatures(arr);
-                        }} style={{ cursor: "pointer", height: 50, width: 100, display: "flex", justifyContent: "center", alignItems: "center", borderRadius: 8, backgroundColor: "#333", color: "white" }} key={index}>{f.text}</li>
+                        <li  style={{ cursor: "pointer", minHeight: 300, height: 300, minWidth: 300, width: 300, display: "grid", gridTemplateRows: "3fr 1fr", gridTemplateColumns: "2fr 1fr", borderRadius: 8, backgroundColor: "#181818", color: "white" }} key={index}>
+                            <Map mapStyle={MapStyles.Satellite} style={{ gridColumnStart: 1, gridColumnEnd: 3, gridRow: 1, borderRadius: "8px 8px 0 0" }}  interactive={false} initialViewState={{ longitude: f.center[0], latitude: f.center[1], zoom: 2 }} mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_TOKEN}>
+                                <Marker longitude={f.center[0]} latitude={f.center[1]} />
+                            </Map>
+                            <div style={{ gridColumn: 1, gridRow: 2, display: "flex", justifyContent: "center", alignItems: "center" }} >{f.text}</div>
+                            <IconButton style={{ gridColumn: 2, gridRow: 2}} onClick={() => {
+                                const arr = [...chosenFeatures];
+                                arr.splice(index, 1);
+                                setChosenFeatures(arr);
+                            }}>
+                                <Delete style={{ color: "white" }} />
+                            </IconButton>
+                        </li>
                     ))}
                 </ul>
             </div>
@@ -90,6 +100,7 @@ export default function Start() {
                     });
                     const teams = teamNames.filter((t) => t !== "");
                     const res = await axios.post("/api/match/create", { teamNames: teams, features });
+                    console.log(res.data);
                     await push("/match/play/" + res.data._id);
                 }
                 } style={{ borderRadius: "50%", padding: 10, fontSize: 48, background: "#282828", width: 150, height: 150, color: "white", textAlign: "center" }} >
