@@ -3,6 +3,7 @@ import connectMongo from "../../../lib/connect-mongo";
 import MatchModel from "../../../lib/schemas/match";
 import Match from "../../../type/match";
 
+// TODO: Replace if placeId is equal
 export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse
@@ -19,7 +20,7 @@ export default async function handler(
             res.status(400).send("No Quiz with ID in Database");
             return;
         }
-        (queriedMatch as Match).teams.find((t) => String(t._id) === String(teamId))!.selectedCoordinates.push(...points.map((p: [number, number]) => ({ lng: p[0], lat: p[1] })));
+        (queriedMatch as Match).teams.find((t) => String(t._id) === String(teamId))!.selectedCoordinates.push(...points.map((p: [number, number], index: number) => ({ lng: p[0], lat: p[1], placeId: queriedMatch.places[index]._id })));
         await (queriedMatch as any).save();
         res.send(JSON.stringify(queriedMatch));
     } else {

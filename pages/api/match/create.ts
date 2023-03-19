@@ -15,7 +15,7 @@ export default async function handler(
         await connectMongo;
         const match = await MatchModel.create({
             teams: teamNames.map((name: string) => ({ name })),
-            features
+            places: features
         });
         res.send(JSON.stringify(match));
     } else {

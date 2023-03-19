@@ -10,6 +10,7 @@ const MatchSchema = new mongoose.Schema({
                     type: new mongoose.Schema({
                         lng: { type: Number, required: true },
                         lat: { type: Number, required: true },
+                        placeId: { type: String, required: true }
                     }),
                     required: false,
                     default: []
@@ -24,7 +25,7 @@ const MatchSchema = new mongoose.Schema({
         default: 0,
         required: true
     },
-    features: [{
+    places: [{
         type: new mongoose.Schema({
             lng: { type: Number, required: true },
             lat: { type: Number, required: true },

@@ -1,5 +1,5 @@
 import {LngLatBoundsLike, LngLatLike} from "react-map-gl";
-import {polygon as polygon, bbox} from "@turf/turf";
+import {polygon as polygon, bbox, centroid} from "@turf/turf";
 
 export function lngLatToMapPosition(lngLat: LngLatLike) {
     if (Array.isArray(lngLat)) {
@@ -52,10 +52,21 @@ export function getBoundsZoomLevel(bounds: LngLatBoundsLike) {
 }
 
 export function getBboxForPoints(points: number[][]) {
-    const ring = [...points];
-    while (ring.length < 4) {
-        ring.push(ring[0]);
+    const ring = [[...points]];
+    while (ring[0].length < 3) {
+        ring[0].push(ring[0][0]);
     }
-    const p = polygon([ring]);
+    ring[0].push(ring[0][0]);
+    const p = polygon(ring);
     return bbox(p) as [number, number, number, number] ;
+}
+
+export function getCenter(points: number[][]) {
+    const ring = [[...points]];
+    while (ring[0].length < 3) {
+        ring[0].push(ring[0][0]);
+    }
+    ring[0].push(ring[0][0]);
+    const p = polygon(ring);
+    return centroid(p).geometry.coordinates;
 }

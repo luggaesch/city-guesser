@@ -1,4 +1,11 @@
 :root {
+  --background: #222222;
+  --on-background: #282828;
+  --on-background-highlight: #333333;
+  --on-background-lowlight: #181818;
+  --text: #fff;
+  --text-hint: #eee;
+
   --max-width: 1100px;
   --border-radius: 12px;
   --font-mono: ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono',
