@@ -1,3 +1,8 @@
+# City-Guesser (Wo war was?)
+
+Small application that allows users to set prompts and set a Location as a Solution to the prompt. Locations are provided by mapbox reverse lookup.
+The user adds a number of teams and players will scan QR-Codes to solve the prompt on second devices.
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
